@@ -11,12 +11,12 @@ table {
     name 'station';
     pk 'id';
     columns qw(id name);
-}
+};
 
 table {
     name 'user';
     pk 'id';
-    columns qw(id name password);
+    columns qw(id name password created_at);
 };
 
 

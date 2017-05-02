@@ -4,26 +4,24 @@ use warnings;
 use utf8;
 use Amon2::Web::Dispatcher::RouterBoom;
 
-any '/' => sub {
-    my ($c) = @_;
-    my $counter = $c->session->get('counter') || 0;
-    $counter++;
-    $c->session->set('counter' => $counter);
-    return $c->render('index.tx', {
-        counter => $counter,
+get '/:id' => sub {
+    my ($c, $args) = @_;
+    my $restaurant_id = $args->{id};
+    my $row = $c->db->single('restaurant', {id => $restaurant_id});
+        
+    return $c->render_json({
+             id       =>    $restaurant_id,
+             name     =>    $row->name,
+             station  =>    $row->station,
+             genre    =>    $row->genre,
+            budget_lower => $row->budget_lower,
+            budget_upper => $row->budget_upper,
+            lunch_or_dinner => $row->lunch_or_dinner,
+            star          => $row->star,
+           good          => $row->good,
+          tabelog       => $row->tabelog,
+         created_at => $row->created_at,
+         updated_at => $row->updated_at,
     });
 };
-
-post '/reset_counter' => sub {
-    my $c = shift;
-    $c->session->remove('counter');
-    return $c->redirect('/');
-};
-
-post '/account/logout' => sub {
-    my ($c) = @_;
-    $c->session->expire();
-    return $c->redirect('/');
-};
-
 1;
