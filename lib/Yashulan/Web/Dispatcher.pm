@@ -24,4 +24,29 @@ get '/:id' => sub {
          updated_at => $row->updated_at,
     });
 };
+
+get '/' => sub {
+    my ($c, $args) = @_;
+    my @rows = $c->db->search('restaurant');
+        
+    return $c->render_json([
+        map {
+            +{		 
+                 id              => $_->id,
+		 name            => $_->name,
+		 station         => $_->station,
+		 genre           => $_->genre,
+		 budget_lower    => $_->budget_lower,
+		 budget_upper    => $_->budget_upper,
+		 lunch_or_dinner => $_->lunch_or_dinner,
+		 star            => $_->star,
+		 good            => $_->good,
+		 tabelog         => $_->tabelog,
+                 created_at      => $_->created_at,
+                 updated_at      => $_->updated_at,
+                }
+            } @rows
+        ]
+    );
+};
 1;
