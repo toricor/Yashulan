@@ -1,3 +1,0 @@
-name="Yashulan"
-[build]
-build_class = "builder::MyBuilder"
