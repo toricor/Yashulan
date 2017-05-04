@@ -4,28 +4,28 @@ use warnings;
 use utf8;
 use Amon2::Web::Dispatcher::RouterBoom;
 
-get '/:id' => sub {
+get '/api/:id' => sub {
     my ($c, $args) = @_;
     my $restaurant_id = $args->{id};
     my $row = $c->db->single('restaurant', {id => $restaurant_id});
         
     return $c->render_json({
-             id       =>    $restaurant_id,
-             name     =>    $row->name,
-             station  =>    $row->station,
-             genre    =>    $row->genre,
-            budget_lower => $row->budget_lower,
-            budget_upper => $row->budget_upper,
-            lunch_or_dinner => $row->lunch_or_dinner,
-            star          => $row->star,
-           good          => $row->good,
-          tabelog       => $row->tabelog,
-         created_at => $row->created_at,
-         updated_at => $row->updated_at,
+        id              => $restaurant_id,
+        name            => $row->name,
+        station         => $row->station,
+        genre           => $row->genre,
+        budget_lower    => $row->budget_lower,
+        budget_upper    => $row->budget_upper,
+        lunch_or_dinner => $row->lunch_or_dinner,
+        star            => $row->star,
+        good            => $row->good,
+        tabelog         => $row->tabelog,
+        created_at      => $row->created_at,
+        updated_at      => $row->updated_at,
     });
 };
 
-get '/' => sub {
+get '/api' => sub {
     my ($c, $args) = @_;
     my @rows = $c->db->search('restaurant');
         
@@ -49,4 +49,9 @@ get '/' => sub {
         ]
     );
 };
+get '/' => sub {
+    my ($c) = @_;
+    return $c->redirect('/api');
+};
+
 1;
