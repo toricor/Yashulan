@@ -10,6 +10,7 @@ requires 'Module::Functions', '2';
 requires 'Plack::Middleware::ReverseProxy', '0.09';
 requires 'Router::Boom', '0.06';
 requires 'Starlet', '0.20';
+requires 'Data::Printer';
 requires 'Teng', '0.18';
 requires 'Test::WWW::Mechanize::PSGI';
 requires 'Text::Xslate', '2.0009';
