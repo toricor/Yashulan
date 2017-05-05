@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import Root from '@/components/Root'
 import Restaurant from '@/components/Restaurant'
+import Signin from '@/components/Signin'
 import Login from '@/components/Login'
 import Favorite from '@/components/Favorite'
 
@@ -11,22 +12,27 @@ export default new Router({
   mode: 'history',
   routes: [
     {
-      path: '/',
+      path: '/restaurants',
       name: 'Root',
       component: Root
     },
     {
-      path: '/:restaurant_id',
+      path: '/restaurants/:restaurant_id',
       name: 'Restaurant',
       component: Restaurant
     },
     {
-      path: '/login',
+      path: '/account/signup',
+      name: 'Signin',
+      component: Signin
+    },
+    {
+      path: '/account/login',
       name: 'Login',
       component: Login
     },
     {
-      path: '/favorite',
+      path: '/account/favorite',
       name: 'Favorite',
       component: Favorite
     }

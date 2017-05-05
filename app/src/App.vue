@@ -1,6 +1,7 @@
 <template>
   <div id="app">
     <img src="./assets/Yashulan.png">
+    <router-view name="header"></router-view>
     <router-view></router-view>
   </div>
 </template>

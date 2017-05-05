@@ -11,12 +11,15 @@
         <tr><th>作成日</th><td>{{ restaurant.created_at }}</td></tr>
         <tr><th>更新日</th><td>{{ restaurant.updated_at }}</td></tr>
       </table>
-    <router-link to="/">一覧へ</router-link>
+      <button v-if="cookie.id" v-on:click="add_favorite">{{ txt.favorite }}</button>
+      <p v-if="err.catch"><span style="color:red">{{ error.message }}</span></p>
+    <router-link to="/restaurants">一覧へ</router-link>
   </div>
 </template>
 
 <script>
 const axios = require('axios')
+const vuecookie = require('vue-cookies')
 export default {
   name: 'restaurant',
   data () {
@@ -25,7 +28,37 @@ export default {
           .get('/api/' + this.$route.params.restaurant_id)
           .then(res => {
             this.$data.restaurant = res.data
-          })
+          }),
+      cookie: {
+        id: vuecookie.get('id'),
+        name: vuecookie.get('name')
+      },
+      err: {
+        catch: false,
+        message: null
+      },
+      txt: {
+        favorite: 'お気に入り登録'
+      }
+    }
+  },
+  methods: {
+    add_favorite: function () {
+      var params = new URLSearchParams()
+      params.append('user_id', this.$data.cookie.id)
+      params.append('restaurant_id', this.$data.restaurant.id)
+      this.$data.txt.favorite = '登録中'
+      axios.post('/api/account/favorite', params)
+      .then(res => {
+        console.log(res.data)
+        if (res.data.response === -1) {
+          this.$data.txt.favorite = 'お気に入り登録済'
+          this.$data.err.catch = true
+          this.$data.err.message = res.data.message
+        } else if (res.data.response === 1) {
+          this.$data.txt.favorite = 'お気に入り登録済'
+        }
+      })
     }
   }
 }
