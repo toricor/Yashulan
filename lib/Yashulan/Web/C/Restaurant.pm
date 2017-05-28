@@ -4,12 +4,12 @@ use utf8;
 use warnings;
 
 use Yashulan;
-#use Yashulan::Repository::  ;
+use Yashulan::Repository::Restaurant;
 
 sub get_the_restaurant {
     my ($class, $c, $args) = @_;
     my $restaurant_id = $args->{restaurant_id};
-    my $row = $c->db->single('restaurant', {id => $restaurant_id});
+    my $row = Yashulan::Repository::Restaurant->fetch_by_restaurant_id($restaurant_id);
         
     return $c->render_json({
         id              => $restaurant_id,
@@ -29,7 +29,7 @@ sub get_the_restaurant {
 
 sub get_restaurants {
     my ($class, $c, $args) = @_;
-    my @rows = $c->db->search('restaurant');
+    my @rows = Yashulan::Repository::Restaurant->fetch_all_restaurants;
     return $c->render_json([
         map {
             +{		 
@@ -53,16 +53,11 @@ sub get_restaurants {
 
 sub get_favorites_of_the_user {
     my ($class, $c) = @_;
+    print "get_favorites\n";
     my $user_id = $c->req->parameters->{user_id};
-    my @rows = $c->db->search_by_sql(q{
-        SELECT
-            restaurant_id
-        FROM
-            favorite
-        WHERE
-            user_id = ?
-    }, [ $user_id ]);
-    
+    use DDP;
+    p $user_id;
+    my @rows = Yashulan::Repository::Restaurant->fetch_favorites_by_userid($user_id);
     return $c->render_json([
         map {
             +{
