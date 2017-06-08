@@ -9,8 +9,8 @@ use Yashulan::Repository::Restaurant;
 sub get_the_restaurant {
     my ($class, $c, $args) = @_;
     my $restaurant_id = $args->{restaurant_id};
-    my $row = Yashulan::Repository::Restaurant->fetch_by_restaurant_id($restaurant_id);
-        
+    my $row = Yashulan::Repository::Restaurant->fetch_by_restaurant_id($restaurant_id)
+        or return $c->res_nodata_json;    
     return $c->render_json({
         id              => $restaurant_id,
         name            => $row->name,
@@ -29,7 +29,8 @@ sub get_the_restaurant {
 
 sub get_restaurants {
     my ($class, $c, $args) = @_;
-    my @rows = Yashulan::Repository::Restaurant->fetch_all_restaurants;
+    my @rows = Yashulan::Repository::Restaurant->fetch_all_restaurants
+        or return $c->res_nodata_json;
     return $c->render_json([
         map {
             +{		 
@@ -53,11 +54,9 @@ sub get_restaurants {
 
 sub get_favorites_of_the_user {
     my ($class, $c) = @_;
-    print "get_favorites\n";
     my $user_id = $c->req->parameters->{user_id};
-    use DDP;
-    p $user_id;
-    my @rows = Yashulan::Repository::Restaurant->fetch_favorites_by_userid($user_id);
+    my @rows = Yashulan::Repository::Restaurant->fetch_favorites_by_userid($user_id)
+        or return $c->res_nodata_json;
     return $c->render_json([
         map {
             +{
