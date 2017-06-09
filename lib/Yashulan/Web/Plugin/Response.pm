@@ -12,6 +12,6 @@ sub init {
     Amon2::Util::add_method($c, 'res_nodata_json', \&res_nodata_json) unless $c->can('res_nodata_json'));
 }
 
-sub res_nodata_json { return $_[0]->render_json({statys => 'Nodata'})}
+sub res_nodata_json { return $_[0]->render_json({status => 'Nodata'})}
 
 1;
