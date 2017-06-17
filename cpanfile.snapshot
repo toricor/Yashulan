@@ -471,6 +471,14 @@ DISTRIBUTIONS
       ExtUtils::MakeMaker 6.42
       Test::More 0.96
       perl 5.008001
+  Data-Pageset-1.06
+    pathname: L/LL/LLAP/Data-Pageset-1.06.tar.gz
+    provides:
+      Data::Pageset 1.06
+    requirements:
+      Data::Page 2
+      ExtUtils::MakeMaker 0
+      Test::More 0.1
   Data-Printer-0.39
     pathname: G/GA/GARU/Data-Printer-0.39.tar.gz
     provides:
