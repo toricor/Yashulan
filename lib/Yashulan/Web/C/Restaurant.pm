@@ -10,12 +10,12 @@ use Yashulan::Repository::Restaurant;
 sub get_the_restaurant {
     my ($class, $c, $args) = @_;
     my $restaurant_id = $args->{restaurant_id};
-    my $row = Yashulan::Repository::Restaurant->fetch_by_restaurant_id($restaurant_id)
+    my $row = Yashulan::Repository::Restaurant->fetch_by_restaurant_id_and_get_station_name($restaurant_id)
         or return $c->res_nodata_json;    
     return $c->render_json({
         id              => $restaurant_id,
         name            => $row->name,
-        station         => $row->station,
+        station         => $row->station_name,
         genre           => $row->genre,
         budget_lower    => $row->budget_lower,
         budget_upper    => $row->budget_upper,
@@ -30,14 +30,14 @@ sub get_the_restaurant {
 
 sub get_restaurants {
     my ($class, $c, $args) = @_;
-    my @rows = Yashulan::Repository::Restaurant->fetch_all_restaurants
+    my @rows = Yashulan::Repository::Restaurant->fetch_all_restaurants_and_get_station_name
         or return $c->res_nodata_json;
     return $c->render_json([
         map {
             +{		 
                  id              => $_->id,
                  name            => $_->name,
-                 station         => $_->station,
+                 station         => $_->station_name,
                  genre           => $_->genre,
                  budget_lower    => $_->budget_lower,
                  budget_upper    => $_->budget_upper,
@@ -55,7 +55,7 @@ sub get_restaurants {
 
 sub get_restaurants_with_pager {
     my ($class, $c, $args) = @_;
-    my @rows = Yashulan::Repository::Restaurant->fetch_all_restaurants
+    my @rows = Yashulan::Repository::Restaurant->fetch_all_restaurants_and_get_station_name
         or return $c->res_nodata_json;
     my $page = Data::Page->new();
     my $total_entries = scalar @rows;
@@ -69,7 +69,7 @@ sub get_restaurants_with_pager {
             +{		 
                  id              => $_->id,
                  name            => $_->name,
-                 station         => $_->station,
+                 station         => $_->station_name,
                  genre           => $_->genre,
                  budget_lower    => $_->budget_lower,
                  budget_upper    => $_->budget_upper,
