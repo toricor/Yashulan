@@ -32,7 +32,7 @@ export default {
   data () {
     return {
       restaurants: axios
-          .get('/api')
+          .get('/api/restaurants')
           .then(res => {
             this.$data.restaurants = res.data
           }),

@@ -25,7 +25,7 @@ export default {
   data () {
     return {
       restaurant: axios
-          .get('/api/' + this.$route.params.restaurant_id)
+          .get('/api/restaurants/' + this.$route.params.restaurant_id)
           .then(res => {
             this.$data.restaurant = res.data
           }),
