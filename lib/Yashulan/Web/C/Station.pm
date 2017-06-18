@@ -3,7 +3,6 @@ use strict;
 use utf8;
 use warnings;
 
-use Data::Page;
 use Yashulan;
 use Yashulan::Repository::Station;
 

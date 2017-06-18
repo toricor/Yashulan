@@ -16,6 +16,7 @@ __PACKAGE__->load_plugins(
     'Web::FillInFormLite',
     'Web::JSON',
     '+Yashulan::Web::Plugin::Session',
+    '+Yashulan::Web::Plugin::Response',
 );
 
 # setup view
