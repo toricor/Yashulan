@@ -5,7 +5,6 @@ import Restaurant from '@/components/Restaurant'
 import Signin from '@/components/Signin'
 import Login from '@/components/Login'
 import Favorite from '@/components/Favorite'
-import Station from '@/components/Station'
 Vue.use(Router)
 
 export default new Router({
@@ -20,11 +19,6 @@ export default new Router({
       path: '/restaurants/:restaurant_id',
       name: 'Restaurant',
       component: Restaurant
-    },
-    {
-      path: '/station/:station_id',
-      name: 'Station',
-      component: Station
     },
     {
       path: '/account/signup',
