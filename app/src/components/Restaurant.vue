@@ -2,6 +2,8 @@
   <div class="restaurant">
     <h1>{{ restaurant.name }}</h1>
       <table>
+        <router-view name="Station"></router-view>
+        <tr><th>最寄駅double axios</th><td>{{ station.name }}</td></tr>
         <tr><th>最寄駅</th><td>{{ restaurant.station }}</td></tr>
         <tr><th>カテゴリ</th><td>{{ restaurant.genre }}</td></tr>
         <tr><th>予算</th><td>{{ restaurant.budget_lower }}～{{restaurant.budget_upper }}円 ({{ restaurant.lunch_or_dinner ? 'ランチ' : 'ディナー' }})</td></tr>
@@ -25,10 +27,15 @@ export default {
   data () {
     return {
       restaurant: axios
-          .get('/api/restaurants/' + this.$route.params.restaurant_id)
-          .then(res => {
-            this.$data.restaurant = res.data
-          }),
+        .get('/api/restaurants/' + this.$route.params.restaurant_id)
+        .then(res => {
+          this.$data.restaurant = res.data
+        }),
+      station: axios
+        .get('/api/station/' + this.$route.params.station_id)
+        .then(res => {
+          this.$data.station = res.data
+        }),
       cookie: {
         id: vuecookie.get('id'),
         name: vuecookie.get('name')
