@@ -5,7 +5,6 @@ import Restaurant from '@/components/Restaurant'
 import Signin from '@/components/Signin'
 import Login from '@/components/Login'
 import Favorite from '@/components/Favorite'
-
 Vue.use(Router)
 
 export default new Router({

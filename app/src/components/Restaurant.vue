@@ -25,10 +25,10 @@ export default {
   data () {
     return {
       restaurant: axios
-          .get('/api/' + this.$route.params.restaurant_id)
-          .then(res => {
-            this.$data.restaurant = res.data
-          }),
+        .get('/api/restaurants/' + this.$route.params.restaurant_id)
+        .then(res => {
+          this.$data.restaurant = res.data
+        }),
       cookie: {
         id: vuecookie.get('id'),
         name: vuecookie.get('name')
