@@ -1,11 +1,14 @@
 <template>
   <div class="root">
     <h1>レストラン一覧</h1>
+      <button v-on:click="greet">Greet</button>
+      <button v-on:click="genNextPageLink">g</button>
+      
       <ul>
         <li v-for="restaurant in restaurants">
           <div>
             <h2><router-link :to="{name: 'Restaurant', params: { restaurant_id: restaurant.id} }">{{ restaurant.name }}</router-link></h2> 
-         <p>{{ restaurant.star }}({{ restaurant.genre }})</p>
+       <p>{{ restaurant.star }}({{ restaurant.genre }})</p>
          <table>
            <tr><td>駅:</td><td> {{restaurant.station }}</td></tr>
            <tr><td>グッド！:</td><td> {{ restaurant.good }}</td></tr>
@@ -40,6 +43,21 @@ export default {
         id: vuecookie.get('id'),
         name: vuecookie.get('name')
       }
+    }
+  },
+  methods: {
+    greet: function (event) {
+      alert('Hello')
+    },
+    genNextPageLink: function () {
+      console.log(this)
+      alert(this)
+    },
+    getCurrentPage: function () {
+      alert()
+    },
+    genPreviousPageLink: function () {
+      alert()
     }
   }
 }
