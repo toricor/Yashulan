@@ -4,7 +4,7 @@
       <button v-on:click="greet">Greet</button>
       <div class="pager">
         <h3>
-          <a v-if="page * 1 > 1" v-vind:href=previousPageLink>{{ page * 1 - 1 }}</a>
+          <a v-if="page * 1 > 1" v-bind:href=previousPageLink>{{ page * 1 - 1 }}</a>
           {{ page }}
           <a v-bind:href=nextPageLink>{{ page * 1 + 1 }}</a>
         </h3>
