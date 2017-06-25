@@ -2,8 +2,13 @@
   <div class="root">
     <h1>レストラン一覧</h1>
       <button v-on:click="greet">Greet</button>
-      <button v-on:click="genNextPageLink">g</button>
-      
+      <div class="pager">
+        <h3>
+          <a v-if="page * 1 > 1" v-vind:href=previousPageLink>{{ page * 1 - 1 }}</a>
+          {{ page }}
+          <a v-bind:href=nextPageLink>{{ page * 1 + 1 }}</a>
+        </h3>
+      </div>    
       <ul>
         <li v-for="restaurant in restaurants">
           <div>
@@ -30,14 +35,28 @@
 <script>
 const vuecookie = require('vue-cookies')
 const axios = require('axios')
+const qs = require('querystringify')
+const query = qs.parse(window.location.search)
+const page = Number(query['page']) || 1
+
 export default {
   name: 'root',
   data () {
     return {
+      page: page,
+      nextPageLink: '/restaurants' + qs.stringify({ page: page + 1 }, true),
+      previousPageLink: '/restaurants' + qs.stringify({ page: page - 1 }, true),
       restaurants: axios
-          .get('/api/restaurants')
+          .get('/api/restaurants', {
+            params: {
+              page: page
+            }
+          })
           .then(res => {
             this.$data.restaurants = res.data
+          })
+          .catch(function (error) {
+            console.log(error)
           }),
       cookie: {
         id: vuecookie.get('id'),
@@ -48,16 +67,6 @@ export default {
   methods: {
     greet: function (event) {
       alert('Hello')
-    },
-    genNextPageLink: function () {
-      console.log(this)
-      alert(this)
-    },
-    getCurrentPage: function () {
-      alert()
-    },
-    genPreviousPageLink: function () {
-      alert()
     }
   }
 }
