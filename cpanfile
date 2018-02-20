@@ -6,17 +6,19 @@ requires 'DBD::SQLite', '1.33';
 requires 'DBD::mysql';
 requires 'HTML::FillInForm::Lite', '1.11';
 requires 'HTTP::Session2', '1.03';
-requires 'JSON', '2.50';
+requires 'JSON', '2.97';
 requires 'Module::Functions', '2';
 requires 'Plack::Middleware::ReverseProxy', '0.09';
 requires 'Router::Boom', '0.06';
 requires 'Starlet', '0.20';
 requires 'Data::Printer';
 requires 'Teng', '0.18';
+requires 'Test::More';
 requires 'Test::WWW::Mechanize::PSGI';
 requires 'Text::Xslate', '2.0009';
 requires 'Time::Piece', '1.20';
 requires 'perl', '5.010_001';
+requires 'TAP::Formatter::JUnit';
 
 on configure => sub {
     requires 'Module::Build', '0.38';
